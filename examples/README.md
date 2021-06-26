@@ -230,7 +230,7 @@ With [Binder](https://mybinder.org), open those notebooks in an executable envir
 
 ### Option 5: Query of Tara Oceans Data from a Dockerized Jupyter Server
 
-With [inriachile/jupyter-minimal-notebook](Dockerized Jupyter Server of Inria-Chile) we are providing those examples in a prepared Docker image. 
+With [Dockerized Jupyter Server of Inria-Chile](https://hub.docker.com/repository/docker/inriachile/jupyter-minimal-notebook) we are providing those examples in a prepared Docker image. 
 
 Install Docker Engine with [Docker Engine](https://docs.docker.com/engine/install) in your proper platform and run:
 
