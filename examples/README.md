@@ -245,3 +245,15 @@ Go to your [Jupyter Notebooks](http://localhost:8888), paste the token and navig
 #### Example B: Query in storage TARA_R110002003
 
 Go to your [Jupyter Notebooks](http://localhost:8888), paste the token and navigate to [../notebooks/query_tara_r110002003.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb) to find the code used example and then execute all the cells.
+
+### Option 6: Query of Tara Oceans Data from a Google Colab
+
+Go to [Google Collaboratory](https://colab.research.google.com), File > Upload Notebook > Github (Authorize) > Repository (oceania-query-demo) branch main > Open [notebooks/query_tara_a100000171.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_a100000171.ipynb) or [notebooks/query_tara_r110002003.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb) and then execute all the cells.
+
+#### Example A: Query in storage TARA_A100000171
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_a100000171.ipynb)
+
+#### Example B: Query in storage TARA_R110002003
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb)
