@@ -3,7 +3,7 @@
 > A little demo of how to use the oceania-query-fasta Python package to consume data from the Oceania storage.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_simple.ipynb)
-[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/master/notebooks/query_tara_simple.ipynb)
+[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_simple.ipynb)
 [![Inria](https://img.shields.io/badge/Made%20in-Inria-%23e63312)](http://inria.cl)
 [![License: CeCILLv2.1](https://img.shields.io/badge/license-CeCILL--v2.1-orange)](https://cecill.info/licences.en.html)
 
