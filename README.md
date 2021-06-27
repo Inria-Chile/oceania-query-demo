@@ -11,11 +11,11 @@ Oceania-query-fasta is a Python package client of Query Service wich is a Python
 
 ### Query of Ocean Microbial Reference Gene Catalog v2 from Google Colab
 
-Go to [Google Collaboratory](https://colab.research.google.com), File > Upload Notebook > Github (Authorize) > Repository (oceania-query-demo) branch main > Open [notebooks/query_dependency.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb.ipynb) and then execute all the cells.
+Go to [Google Collaboratory](https://colab.research.google.com), File > Upload Notebook > Github (Authorize) > Repository (oceania-query-demo) branch main > Open [notebooks/query_tara_r110002003.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb) and then execute all the cells.
 
 #### Example
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb)
 
 ### Another Examples
 
