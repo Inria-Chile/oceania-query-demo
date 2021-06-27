@@ -257,3 +257,15 @@ Go to [Google Collaboratory](https://colab.research.google.com), File > Upload N
 #### Example B: Query in storage TARA_R110002003
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb)
+
+### Option 7: See in read-only mode the notebooks in NbViewer
+
+Go to [NbViewer](nbviewer.jupyter.org), Copy the URL of the notebooks.
+
+#### Example A: Query in storage TARA_A100000171
+
+[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/master/notebooks/query_tara_a100000171.ipynb)
+
+#### Example B: Query in storage TARA_R110002003
+
+[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/master/notebooks/query_tara_r110002003.ipynb)
