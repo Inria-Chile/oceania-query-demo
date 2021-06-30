@@ -21,7 +21,7 @@ oceania -h
 cat query_tara_a100000171.csv
 
 # Excecute the query:
-oceania query-fasta data/raw/tara/OM-RGC_v2/assemblies/TARA_A100000171.scaftig.gz query_tara_a100000171.csv csv example_tara_a100000171.output.csv
+oceania query-fasta TARA_A100000171 query_tara_a100000171.csv csv example_tara_a100000171.output.csv
 
 # And then check the output file:
 cat example_tara_a100000171.output.csv
