@@ -16,10 +16,10 @@ Go to [Google Collaboratory](https://colab.research.google.com), File > Upload N
 
 ## A Jupyter notebook with a more complex self-contained example that extracts unidentified sequences (intergenic) from files in the catalogue:
 
-[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic.ipynb)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic.ipynb)
+[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic_region.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic_region.ipynb)
 
-Go to [Google Collaboratory](https://colab.research.google.com), File > Upload Notebook > Github (Authorize) > Repository (oceania-query-demo) branch main > Open [notebooks/query_tara_intergenic.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic.ipynb) and then execute all the cells.
+Go to [Google Collaboratory](https://colab.research.google.com), File > Upload Notebook > Github (Authorize) > Repository (oceania-query-demo) branch main > Open [notebooks/query_tara_intergenic_region.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic_region.ipynb) and then execute all the cells.
 
 ## Another Examples
 
