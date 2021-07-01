@@ -262,10 +262,10 @@ Go to [Google Collaboratory](https://colab.research.google.com), File > Upload N
 
 Go to [NbViewer](nbviewer.jupyter.org), Copy the URL of the notebooks.
 
-#### Example A: Query in storage TARA_A100000171
+#### Example A: Read notebook of Query in storage TARA_A100000171
 
 [![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/master/notebooks/query_tara_a100000171.ipynb)
 
-#### Example B: Query in storage TARA_R110002003
+#### Example B: Read notebook of Query in storage TARA_R110002003
 
 [![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/master/notebooks/query_tara_r110002003.ipynb)
