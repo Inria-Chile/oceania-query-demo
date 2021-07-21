@@ -98,7 +98,7 @@ TARA_A100000171_G_C2026460_1,0,100
 Excecute the query:
 
 ```bash
-oceania query-fasta data/raw/tara/OM-RGC_v2/assemblies/TARA_A100000171.scaftig.gz query_tara_a100000171.csv csv example_tara_a100000171.output.csv
+oceania query-fasta TARA_A100000171 query_tara_a100000171.csv csv example_tara_a100000171.output.csv
 [08-06-2021 21:48:52] Sending request for fasta sequences
 [08-06-2021 21:48:54] Request accepted
 [08-06-2021 21:48:54] Waiting for results...
@@ -144,7 +144,7 @@ TARA_R110002003_G_scaffold3_4,1530,1669
 Excecute the query:
 
 ```bash
-oceania query-fasta data/raw/tara/OM-RGC_v2/assemblies/TARA_R110002003.scaftig.gz query_tara_r110002003.csv csv example_tara_r110002003.output.csv
+oceania query-fasta TARA_R110002003 query_tara_r110002003.csv csv example_tara_r110002003.output.csv
 [08-06-2021 21:48:52] Sending request for fasta sequences
 [08-06-2021 21:48:54] Request accepted
 [08-06-2021 21:48:54] Waiting for results...
