@@ -230,7 +230,7 @@ With [Binder](https://mybinder.org), open those notebooks in an executable envir
 
 ### Option 5: Query of Tara Oceans Data from a Dockerized Jupyter Server
 
-With [Dockerized Jupyter Server of Inria-Chile](https://hub.docker.com/repository/docker/inriachile/jupyter-minimal-notebook) we are providing those examples in a prepared Docker image. 
+With [Dockerized Jupyter Server of Inria-Chile](https://hub.docker.com/repository/docker/inriachile/jupyter-minimal-notebook) we are providing those examples in a prepared Docker image. The main feature with this image is that the notebooks do not need to install oceania-query-fasta, because it was installed already.
 
 Install Docker Engine with [Docker Engine](https://docs.docker.com/engine/install) in your proper platform and run:
 
@@ -240,11 +240,11 @@ docker run -p 8888:8888 -v $(pwd):/home/jovyan/work inriachile/jupyter-minimal-n
 
 #### Example A: Query in storage TARA_A100000171
 
-Go to your [Jupyter Notebooks](http://localhost:8888), paste the token and navigate to [../notebooks/query_tara_a100000171.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_a100000171.ipynb) to find the code used example and then execute all the cells.
+Go to your [Jupyter Notebooks](http://localhost:8888), paste the token and navigate to [../notebooks/query_tara_a100000171_without_dependency.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_a100000171_without_dependency.ipynb) to find the code used example and then execute all the cells.
 
 #### Example B: Query in storage TARA_R110002003
 
-Go to your [Jupyter Notebooks](http://localhost:8888), paste the token and navigate to [../notebooks/query_tara_r110002003.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb) to find the code used example and then execute all the cells.
+Go to your [Jupyter Notebooks](http://localhost:8888), paste the token and navigate to [../notebooks/query_tara_r110002003_without_dependency.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003_without_dependency.ipynb) to find the code used example and then execute all the cells.
 
 ### Option 6: Query of Tara Oceans Data from a Google Colab
 
