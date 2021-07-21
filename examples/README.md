@@ -222,11 +222,11 @@ With [Binder](https://mybinder.org), open those notebooks in an executable envir
 
 #### Example A: Query in storage TARA_A100000171
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Inria-Chile/oceania-query-demo/master?filepath=notebooks/query_tara_a100000171.ipynb)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Inria-Chile/oceania-query-demo/main?filepath=notebooks/query_tara_a100000171.ipynb)
 
 #### Example B: Query in storage TARA_R110002003
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Inria-Chile/oceania-query-demo/master?filepath=notebooks/query_tara_r110002003.ipynb)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Inria-Chile/oceania-query-demo/main?filepath=notebooks/query_tara_r110002003.ipynb)
 
 ### Option 5: Query of Tara Oceans Data from a Dockerized Jupyter Server
 
