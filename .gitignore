@@ -139,5 +139,6 @@ cython_debug/
 
 example_tara_a100000171.output.csv
 example_tara_r110002003.output.csv
+examples/example.output.csv
 
 Dockerfile

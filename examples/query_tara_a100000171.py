@@ -1,33 +1,27 @@
-from oceania import get_sequences_from_fasta, list_fasta_samples, list_genes_and_gaps
+from oceania import get_sequences_from_fasta
 
-# 2. List all FASTA samples
-df_samples = list_fasta_samples()
-print("Samples list:")
-print(df_samples)
+TARA_SAMPLE_ID = "TARA_A100000171"
 
-# 3. Manually choose the file from the list of FASTA samples
-sample_id = "TARA_A100000171"
-sample_key = df_samples[df_samples.sample_id == sample_id]['sample_key'].values[0]
-df_gaps = list_genes_and_gaps(sample_id)
-print("Genes and gaps by sample:")
-print(df_gaps)
+# REQUEST_PARAMS is a list of tuples that identify subsequences to extract
+# each tuple must have the values (sequence_id, start_index, stop_index, sequence_type)
+# sequence type accepted values are [raw, complement, reverse_complement], optional value if ommited defaults to "raw".
+REQUEST_PARAMS = [
+            ("TARA_A100000171_G_scaffold48_1", 10, 50, "complement"),
+            ("TARA_A100000171_G_scaffold48_1", 10, 50),
+            ("TARA_A100000171_G_scaffold48_1", 10, 50, "reverse_complement"),
+            ("TARA_A100000171_G_scaffold181_1", 0, 50),
+            ("TARA_A100000171_G_scaffold181_1", 100, 200),
+            ("TARA_A100000171_G_scaffold181_1", 200, 230),
+            ("TARA_A100000171_G_scaffold493_2", 54, 76),
+            ("TARA_A100000171_G_scaffold50396_2", 87, 105),
+            ("TARA_A100000171_G_C2001995_1", 20, 635),
+            ("TARA_A100000171_G_C2026460_1", 0, 100),
+        ]
 
-# 4. Create the query filter to list gaps
-query = 'length > 100 and id.str.startswith("gap__")'
-query_result = df_gaps.query(query, engine='python').head(5)
-print("Query list of gaps, to get 5 with length over 100")
-print(query_result)
-
-# 5. Create the query filter to list gaps
-params = query_result[['original_sequence_id', 'start', 'stop']].copy()
-positions = []
-for row in params.itertuples():
-    positions.append((str(row[1]), int(row[2]), int(row[3])))
-
-# 6. Extract the biological sequences of the selected gaps
-results = get_sequences_from_fasta(
-    str(sample_key),
-    positions
+request_result = get_sequences_from_fasta(
+    TARA_SAMPLE_ID,
+    REQUEST_PARAMS
 )
-print("Dataframe loaded:")
-print(results)
+
+# get_sequences_from_fasta returns a pandas.DataFrame with the extracted sequences
+print(request_result)
