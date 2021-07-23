@@ -240,13 +240,15 @@ Install Docker Engine with [Docker Engine](https://docs.docker.com/engine/instal
 docker build -t inriachile3/jupyter-minimal-notebook:latest .
 ```
 
-### Push the Docker container image to DockerHub of inriachile3 (By security it is Private)
+#### Push the Docker container image to DockerHub of inriachile3 (By security it is Private)
 
 ```sh
 docker login --username "inriachile3"
 docker push inriachile3/jupyter-minimal-notebook:latest
 docker pull inriachile3/jupyter-minimal-notebook:latest
 ```
+
+#### Run the Docker container image
 
 ```bash
 docker run -p 8888:8888 -v $(pwd):/home/jovyan/work inriachile3/jupyter-minimal-notebook:latest
