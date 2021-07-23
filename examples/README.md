@@ -234,8 +234,22 @@ With [Dockerized Jupyter Server of Inria-Chile](https://hub.docker.com/repositor
 
 Install Docker Engine with [Docker Engine](https://docs.docker.com/engine/install) in your proper platform and run:
 
+#### Build the Docker container image
+
 ```bash
-docker run -p 8888:8888 -v $(pwd):/home/jovyan/work inriachile/jupyter-minimal-notebook:latest
+docker build -t inriachile3/jupyter-minimal-notebook:latest .
+```
+
+### Push the Docker container image to DockerHub of inriachile3 (By security it is Private)
+
+```sh
+docker login --username "inriachile3"
+docker push inriachile3/jupyter-minimal-notebook:latest
+docker pull inriachile3/jupyter-minimal-notebook:latest
+```
+
+```bash
+docker run -p 8888:8888 -v $(pwd):/home/jovyan/work inriachile3/jupyter-minimal-notebook:latest
 ```
 
 #### Example A: Query in storage TARA_A100000171
