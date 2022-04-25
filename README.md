@@ -1,4 +1,4 @@
-# Oceania-query Demo
+# `oceania-query-fasta` Demo
 
 > A demo of how to use the `oceania-query-fasta` Python package to run queries on the OcéanIA FASTA Query Service.
 
