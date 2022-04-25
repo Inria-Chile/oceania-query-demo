@@ -1,26 +1,199 @@
 # Oceania-query Demo
 
-> A little demo of how to use the oceania-query-fasta Python package to consume data from the Oceania storage.
+> A demo of how to use the `oceania-query-fasta` Python package to run queries on the OcéanIA FASTA Query Service.
 
-[![Inria](https://img.shields.io/badge/Made%20in-Inria-%23e63312)](http://inria.cl)
 [![License: CeCILLv2.1](https://img.shields.io/badge/license-CeCILL--v2.1-orange)](https://cecill.info/licences.en.html)
 
-Oceania-query-fasta is a Python package client of Query Service wich is a Python Flask service to query data of Oceania storage. This application permits to query of Ocean Microbial Reference Gene Catalog v2 100GB (gziped) of FASTA, CSV, TSV files.
+[`oceania-query-fasta`](https://github.com/Inria-Chile/oceania-fasta-query-client) is a `pip`-installable Python package client of **OcéanIA FASTA Query Service** which is an online service to query large [FASTA files](https://en.wikipedia.org/wiki/FASTA_format) stored in the OcéanIA data storage. It currently supports the [Ocean Microbial Reference Gene Catalog v2](https://en.wikipedia.org/wiki/FASTA_format) with 100GB (gziped) FASTA, CSV, TSV files.
 
-## A Jupyter notebook with a simple self-contained example of a query that extracts a set of sequences from a given file in the catalogue:
+By using `oceania-query-fasta` you do not need to move large files around. Instead, you run queries on our online service right from your Python code and get the results as a [Pandas](https://pandas.pydata.org/docs/index.html) [`DataFrame`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
 
-[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/master/notebooks/query_tara_simple.ipynb)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_simple.ipynb)
+## Install
 
-Go to [Google Collaboratory](https://colab.research.google.com), File > Upload Notebook > Github (Authorize) > Repository (oceania-query-demo) branch main > Open [notebooks/query_tara_simple.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_simple.ipynb) and then execute all the cells.
+Requirements:
 
-## A Jupyter notebook with a more complex self-contained example that extracts unidentified sequences (intergenic) from files in the catalogue:
+- [Python 3.7.3](https://www.python.org/downloads/) or newer,
+- [Virtual env](https://docs.python.org/3/library/venv.html)
+- [Git](https://git-scm.com/downloads), and
 
-[![nbviewer](https://img.shields.io/badge/view%20in-nbviewer-orange.svg)](https://nbviewer.jupyter.org/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic_region.ipynb)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic_region.ipynb)
+Create and activate a Python virtual environment:
 
-Go to [Google Collaboratory](https://colab.research.google.com), File > Upload Notebook > Github (Authorize) > Repository (oceania-query-demo) branch main > Open [notebooks/query_tara_intergenic_region.ipynb](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_intergenic_region.ipynb) and then execute all the cells.
+```zsh
+git clone https://github.com/Inria-Chile/oceania-query-demo.git
+cd oceania-query-demo/
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-## Another Examples
+## Usage
 
-For other examples of usage review in [examples/README.md](https://github.com/Inria-Chile/oceania-query-demo/blob/main/examples/README.md).
+### Option 1. Query of Tara Ocean Data from command-line
+
+The library may be used directly as a command line tool:
+
+```zsh
+oceania query-fasta -h
+
+Usage: oceania query-fasta [OPTIONS] <key> <query_file> <output_format>
+                           <output_file>
+
+  Extract secuences from a fasta file in the OceanIA Storage.
+
+  <key> object key in the OceanIA storage
+  <query_file> CSV file containing the values to query.
+               Each line represents a sequence to extract in the format "sequence_id,start,end,type"
+               "sequence_id" sequence ID
+               "start" start index position of the sequence to be extracted
+               "end" end index position of the sequence to extract
+               "type" type of the sequence to extract
+                      options are ["raw", "complement", "reverse_complement"]
+                      type value is optional, if not provided default is "raw"
+  <output_format> results format
+                  options are ["csv", "fasta"]
+  <output_file> name of the file to write the results
+
+Options:
+  -h, --help  Show this message and exit.
+```
+
+Or only for more information:
+
+```zsh
+oceania -h
+
+Usage: oceania [OPTIONS] COMMAND [ARGS]...
+
+  A simple OceanIA command line tool.
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  query-fasta  Extract secuences from a fasta file in the OceanIA Storage.
+```
+
+#### Example 1.A. Query in storage TARA_A100000171
+
+The `sample-data/` folder contains the query file `query_tara_a100000171.csv`
+
+```csv
+TARA_A100000171_G_scaffold48_1,10,50,complement
+TARA_A100000171_G_scaffold48_1,10,50
+TARA_A100000171_G_scaffold48_1,10,50,reverse_complement
+TARA_A100000171_G_scaffold181_1,0,50
+TARA_A100000171_G_scaffold181_1,100,200
+TARA_A100000171_G_scaffold181_1,200,230
+TARA_A100000171_G_scaffold493_2,54,76
+TARA_A100000171_G_scaffold50396_2,87,105
+TARA_A100000171_G_C2001995_1,20,635
+TARA_A100000171_G_C2026460_1,0,100
+```
+
+Run the query:
+
+```zsh
+oceania query-fasta TARA_A100000171 query_tara_a100000171.csv csv example_tara_a100000171.output.csv
+[08-06-2021 21:48:52] Sending request for fasta sequences
+[08-06-2021 21:48:54] Request accepted
+[08-06-2021 21:48:54] Waiting for results...
+```
+
+And then, check the output file `example_tara_a100000171.output.csv` that should look like:
+
+```csv
+TARA_A100000171_G_scaffold48_1,10,50,complement,ACCGTAACGTAGGCCATATTATTTTCATGGTCTTCCACAA
+TARA_A100000171_G_scaffold48_1,10,50,raw,TGGCATTGCATCCGGTATAATAAAAGTACCAGAAGGTGTT
+TARA_A100000171_G_scaffold48_1,10,50,reverse_complement,AACACCTTCTGGTACTTTTATTATACCGGATGCAATGCCA
+TARA_A100000171_G_scaffold181_1,0,50,raw,CCAAGACCAAGCAATTTTAACACCACACTTAGATACTGCGCAAACAGCGT
+TARA_A100000171_G_scaffold181_1,100,200,raw,ATTATGTTACCAGCACTTGATAACCAAAAAGTTTGGGcaggattaaaattaactaaTGATCAATTAATTGCAACTGACGATGATCAAGCATACTTTAAGT
+TARA_A100000171_G_scaffold181_1,200,230,raw,ATCAAACTGATGCTACTAACTCAGAAGCAT
+TARA_A100000171_G_scaffold493_2,54,76,raw,TAAGTTTTTATTATTATATTTT
+TARA_A100000171_G_scaffold50396_2,87,105,raw,AGCTGTTCGGAAAACTAG
+TARA_A100000171_G_C2001995_1,20,635,raw,ACAGCACACCAAGCAGGTCGTCGACCGAAACGATATTGAGAAGAATAAGAACGGAAACCGCGATGGCTGCACTCACCTCCGGCGAGCGCCATTCGCGGGCAAACGCTATAAAGAGACCGATAATGACGACGCCAACGATCAGCGCGCCATAGGGCTCAATCAGGCTAGCGAACAAATGCACCCTCCGCTCGGTCCACGGCGCACTCTATGCGATGCCGGCCTGTATTGGAAAGCAGTCAGAATCAATTCGGACTTCTTTTTTAAGCAAACGGGCTTGGGCATTACCGCCCGGATAATGTACGGCTGACTGCATCCCGCCAACCGGCCAGCTTTTCCTTGCGCGCCGCTCCGTCCATTTCGGGAACGAACTGACGTTCGAGCGCCCAGCTTCTTGAAAACGCTTCTTGATCCGGCCAAAGCCCTGTCGCTTGCCCTGCGAGCCAGGCGGCCCCCAGAACCGTTGTTTCGAGCATATTTGGCCGGTCGACCGGTGCGTCGAGAA
+TARA_A100000171_G_C2026460_1,0,100,raw,AATTTGAAACAACCCTAAAGTGTTTACCATAATAGGTTCTTAAATCAAAACCAACATTCCAAGTTAGGTTGTCGCCTAGCTTTTTCTCAAGGTTTGAAAT
+```
+
+Previous steps can be executed also from the following bash [query_tara_a100000171.sh](https://github.com/Inria-Chile/oceania-query-demo/blob/main/bash-examples/query_tara_a100000171.sh) with:
+
+```bash
+bash query_tara_a100000171.sh
+```
+
+#### Example 1.B. Query in storage TARA_R110002003
+
+For this example we use the file `sample-queries/query_tara_r110002003.csv`
+
+```csv
+TARA_R110002003_G_scaffold3_1,3290,6293
+TARA_R110002003_G_scaffold3_3,0,327
+TARA_R110002003_G_scaffold3_3,944,2742
+TARA_R110002003_G_scaffold3_4,379,379
+TARA_R110002003_G_scaffold3_4,1530,1669
+```
+
+Execute the query:
+
+```bash
+oceania query-fasta TARA_R110002003 query_tara_r110002003.csv csv example_tara_r110002003.output.csv
+[08-06-2021 21:48:52] Sending request for fasta sequences
+[08-06-2021 21:48:54] Request accepted
+[08-06-2021 21:48:54] Waiting for results...
+```
+
+And then, check the output file `example_tara_r110002003.output.csv`:
+
+```csv
+id,start,end,type,sequence
+TARA_R110002003_G_scaffold3_1,3290,6293,raw,TGATCGGGAGTCCTCCAGGCTTTGGATCGTTTGGGATAGATTTGTTCGAAGGAATACGGTGTCAGGAAAAGAGGATGAGGGATCGATAGTTGTGAGCTGGCATGAGCCATCAACGGTTCTGGAGTCTCGGGTACAAGTCTCACGCAGGTCTGACTGCTGGGCCACGTGCTGAAATGTATTGCTTGTAAAAGCAAATGCTTCACCGAGTAGGGTACAACAGATTGCGAATCGCATGATTTTGGATTGTTCGAGAGGTTGAATGTCTGAGAAGACGAACTTACTACTACAGCCTGCAAAGATTCATTGGGGTTGATATACTGTTGACGGTGGAGTTGGTGCGCCGAGTTATGAAACGCGGGATCGCAGTGAAGCGAAGAGCTGAAACATTTACTGCGAAACATGCCGTCTGTGTTCGAAACTGTACAGCTACCTCGTTGCTACAGCTTGAGTCTACGGGCACCGACTTCAGGCAGCACAATAGGCGCTCCTGACCTCTGCAGGAGGTACTATGAGCTTGCTGTTGAAGGCCTTATGCCACTAATTTGACGAGACCTGAGTTGCTACCCGCACATTTAAACATGCAAGACATACATCATGACAGCTTCGTTAATTGGGTCCGTCGATACAAGATCGAGCGGCGGAAATATCGATGAGCGCTGTTTTCAATAGTGTACTGTGATTTGCGATTTGCGGGGGAAGCAAGAGCGAGACGCGGATGACGGGGGAAGGTTGTCGCATTTGTTGTTCGAGGCTGAAACGAAGCGCTGCTCGGCAAAGCCTGCCATTCCGCGCTGGGAGGCTCGCCATTTCTTTCTTCCAATTGGACGAGGGAGCGTCTTGAGAATTTTCGAAATGACATGAAAGTCCAATAAGTCGATAGGCATGTTGACCGAGTCCGTAGGCACGAAAGACTGCAGCATTGATTTGAATTGCCCTCAATTTTCTTTGGTGACTACTCGATCGATCTCTGCCCACAATGTTGTTGCTCAGCACGACAACGGACTGCCATCCCTGGGACTATGAGTCAAGGGTGGAATGGTGATGACCGGTCATGATGTGCCAGAAGAGACAGCCATTGACTTGCCAGACGCATCTCCTGGTGCGATTGGCGCGATCAGACCCTTCGGCAGTGCGATACTGTATGCTCATTGATGTCATTCGTTATGGCTGAACGAGATGTCACACCCCTCGCGCCATGCAATGATCGCGGATCTCTGAAGACGCTGATGTTGTCGTCTAGCTCACTGTTATTTTCTCAAGAACTTCGCGACGGTAATCTCGTCCGAGGTGTCGGGCGTACTGATTGCACGTGCATGGGCATATGGGTGCGGTTGTTGACCAGGATGGGCCGTTTGGATGACTGCGCTCCGGGTAGGAGTCGCCAAGAGCTTACATGGTGCAAGAACAGAGGGCGGTATGTCGACATCTGTGAGGCGGCAGGCTGAAGTCAAGCTATTTCTGTCCTGATCAGCGCGAGGGCAGACAGGCAATTGTGCGACGGTAAATTCGGTGCCAATGGCTCTCGATATCAACGACAGGCCGGCGTCGTGCCCAGCACTACCGCCGGGCCGCCTAGTGCGAGCCCTTGCTGACGGGTTGCGCGTTATGCACCTGTTCAGTAGATTCATGAGCTCATGGTAGTGGTGGTAGCTGGCGTGGTGCTGAACGGGATGGTGAATGGTTCCGATGCTCCGATCCGAACCCCAAAGCGCCCCTCGCAACCCTACCCGGTAGCAGATGCCCCGGGATTCAGGCCACGTCAACGTAAGCTCAGCAAAGTGCGCAAAGACCTGCCTCAACTAGTCGACACTGTGGCCAAGCCTTTGCATATTCACCAGAGAGAGGAGAGCTCTCTTGTACGCCCCGTACCGTGTAGCACAGTCAGCGCGTCGAGAGTCCTGGAGTCGTCTCGTCGTAAGTCACGGTAATGGCAGTACAACGGGCGCGAAAGTCGACATAAGACCAGCTCCTCGAGCGAACAAGCCCGTCATCTTGATCGATGGAGCAAACATCTCAGGCTCTCTAGCTTTGTTCATCGGAGTTGGAACTGAAGACATTGTTTTTGGTGTTTGCGACCACAAGTTGAACGTCAACCGGCGCAAGAACGCCCCGAGCCCGATTGACTTCCGCTCCGCCCCCTTCTCGTCCGACGTGCACCGCCTTTCCACCATGTGGCATGACCCACCAAGGCAGCCAATCTGGCGCCCAATGATCTTCGTTGCTTCCAGCCTCATGTCCCAGTTTGGTTCGACCTAATCCGTTCTGGGGCCATTCTGCGATGTCCTGGAAACGCACGCTACACGCCACACTGCCTAGGATTCCGACCGCTGGACGGGAGTTATTATCTGACATGCTAGACTCGCGTCTTCGACCGCTTTGGGAAGGGCTTCGTCTCCACTGCGCGCTCGTAATCTACGCGTAGTCGCTGCCTCAGGAGGATTACTGCAGCGCCATGGAGAGGCGAATGCGAAACAACATTGTGTCCGGTCACCACTCGCAGCATATAAGGCATCAGGTTTCGCCCTCGTAAGCGATTGTTCCAACCCAAGTCAGCATTACTACACTCGCAACGAGAGACTATTCGCCTCGGCCTCCCCTTCAGAGTCATAGCTAGAAGTTTCTCATTGGCTTCCTTTCGACACAACTTCACCTCGCAATCTGCAAAATGACTGTTCCCCTACCAAACCCCGATCTCTGTCAGTCGAAATTGTCCAGCTTCACACCTTCAACTCACTAATCTGTTTCTCAAAGGTACCGCAGTCGGTCAGGTCGTTGCTGGCCGGCCATGTACAGTCGAAGGGACACTCTACGGCTACTACCCTAGCCTTGGCGCCAACGCTTTCTTCGCTGCTTTCTTCGCGGTCTGCTTTGCCTGGCAACTATATTGCGGCATCAGATACAAGACATGGACCTACATGGTGTGTATTGGAGTACGAGTCCTCATTGTCCATGACGCTGACCACTAGCAGATCGCCCTTTGTCTTGGGTGTGTCGGTGAAGCCG
+TARA_R110002003_G_scaffold3_3,0,327,raw,TCCCTCTACACAGAGCAAACCTCCCAGGTAAGATCAGCCCGGGCTAGTCCCCTACCTGGGGTCGATGGATAAATAACCTTGAGTCCAGCTTACTTGCCCAGGATTCTACAGGCACTTCCGGGAGTGGTGTGAGCACTGATTCGACAGCCGAATACAGCGATGGCATGGCCTCATCGTACCGACACAGCTCCCGGGCTTCATACTCACCGTCTGTTGGACACCATCCTAGCTGGCCAGGCTCTAGCACGATTGCCTCATCATCCCAATCGATATCAACGAAAGGGAAGCAGCCAGCGCCCACGGCGGATGCTCTCGGGCGGCCATTTT
+TARA_R110002003_G_scaffold3_3,944,2742,raw,CAACATCTCCCTCTTCTTTACTTTGAATCTCTCGTCCTTATTTCGTATCTATGAAATGAGTGCTAAAAATCTCAGGGAACGACTTCACAGCCTTTGCATCTATGTTTCACTTCTGGTACCTCATGCGATGGATGATATCACCGTCACCCGAAACTTACGAAGCGATCCCAGAATGGCTGAGACCAACGTAAGATACCGGTAGCAGCAGTTTGGTCTTTGCGCTCACGTTGTTCATTCTAGACCAAACCAGTTATTCATGCCTCACATCAACATGCTCGATTTCATCGCTTGGCCTGCGTTCCGCGAATTCGCTGTACAGGTTCCACGCATGCAAGAGCGGATGGACTGGATGATGGACATGAGTCTTACAATCCAGTGCGACTGGTCATTTGCCAACGATGAGGCTTTTCGAAGAGATGATGAGACAGGTTTGCTAGACCTATGTTTGGTGGCAAAGGTATGCTCACTTCGCTACATTAAGACTCCTCGAAAGAACCATGCAGTCAAAGGCTCAGGGACACACGCTATGAACCCTTGCTGACTAGGTCCAGACGGCTATGCGTGATCTCTCCTGTTGGTCTGTAGGGCCAACATTTAGAGCCTACGTAAGCAATGCGGATTCGTACGTGCGAATCAGGACAGAAGAATCATCCGGGTGAAGAGATTATTCGGACACCTTGGATATAATAGCCGAACGACAACATCAAATACAGTCTGTTGTGCAGCAACAACAAGAGTTTTATTTACGAATCTTTCCCAGATAAGTTATTATAATTGCCTCTAACTTACCACTTACTTAAGACTATAGAGCTGTAGAGGTTGTAGTGCTAACTATCATGCAAAAGGAAACCTTTGGTGGGGTGTCGAAATGTGACCGATTTTCTTTTACCCGGGTGGAACATTGACCGAGCTTGGTAACGACCTCCGCTTGGAAGGCGGAGTAAAGAAAGTGTAAGTTGCCCATACATACGTACTAGTAATCTCAGTCGGAAGCACGGAAAACCAGCATGCACACCAAGCCACTAAATAACACACCGATACCAAATGAAAACACCGCCAGGCATCTTTACGTCCGTCATCAGTACTACAACCTTCGCGCCATATACCGTTGGTACGTATGACGGCTTTTCGTACGGCCTTTTCACTGGATGTAATACCCATATGACTCGATATAAATATGCGAAACATCGTACGATGCGCCTCCAGAAATTCGATGACCACGTTAACTACGATGCACGTCATAAGTCGATGCTCATCGCGACAATGAGGGGCACGGAGGGGCAGACCCCCTGGTCAAGTCTTCCGACCCAATCATATTGTTCCTTTCCCTAGGGAAACTCGATCTCTTCATATAGAATCGATTCCGATCTTGTGATTCAACCACGGAAGTACCTCAGCTTGTCTGCTTGGGAGATGAGGCCGATTCACGACGGATTACGACGATTGCAGCGTGGGAGGACGTCTGGGCCAGTGGCGCTGCGGTAGTGGCGTTGTTCTAGTGTCGCAAACGGTCGTGATGGAAGCCGGATAGCTTCACACATTTGGGGGAGGGTCGAACGGAATATTACAAACAGATGGTGTTAAGTGCATGCGATCTTAGTGATGAGAGATGCTACTAACGAAGCTAGTCTTGCCGCTGCTGTGCCTTGTGAGGGATACCGGTAGGAGACCGATACCGTTAACTCAATCTCTCCAACCCGGAGACATAGCGCGGATCGGAATATGCATAGAACTTTTAGTCCAAGAGAGAAGCCAGTCGTAAGGAGAGTAGCAGGCAATGCCGAGTAGGTGACCAACT
+TARA_R110002003_G_scaffold3_4,379,379,raw,
+TARA_R110002003_G_scaffold3_4,1530,1669,raw,GAGCAATTTGCAGATGGTGGTGTAGTCCTCGAAGTTGGAACAGATGCTCGCGAGACTCCACGGTGTCAGGAGTGTCGGGAACCAACGATAGCTAGGAAAGTTAGTCCAGGCTCAGGGAACCAAAGGCCAAAAAAAAacc
+```
+
+Previous steps can be executed from the following bash [`query_tara_r110002003.sh`](https://github.com/Inria-Chile/oceania-query-demo/blob/main/bash-examples/query_tara_r110002003.sh) with:
+
+```bash
+bash query_tara_r110002003.sh
+```
+
+### Option 2. Query of Tara Oceans Data from Python package
+
+The library may be used directly as a python package.
+
+#### Example 2.A. Run Python query TARA_A100000171
+
+Run [`query_tara_a100000171.py`](https://github.com/Inria-Chile/oceania-query-demo/blob/main/python/query_tara_a100000171.py) with:
+
+```bash
+python3 examples/query_tara_a100000171.py
+```
+
+#### Example 2.B. Run Python query TARA_R110002003
+
+Run [`query_tara_r110002003.py`](https://github.com/Inria-Chile/oceania-query-demo/blob/main/python/query_tara_r110002003.py) with:
+
+```bash
+examples/query_tara_r110002003.py
+```
+
+### Option 3: Query of Tara Oceans Data from Jupyter Notebook
+
+Example Jupyter notebooks are available on folder [`notebooks/`](https://github.com/Inria-Chile/oceania-query-demo/tree/main/notebooks). To use them you can create a running instance of Jupyter notebooks by
+
+```bash
+jupyter notebook
+```
+
+or, alternatively, use the Google Colab links that are provided below.
+
+#### Example 3.A. Query in storage TARA_A100000171
+
+Navigate to [`notebooks/query_tara_a100000171.ipynb`](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_a100000171.ipynb) to find the code used example and then execute all the cells. [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_a100000171.ipynb)
+
+#### Example 3.B. Query in storage TARA_R110002003
+
+Navigate to [`notebooks/query_tara_r110002003.ipynb`](https://github.com/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb) to find the code used example and then execute all the cells. [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Inria-Chile/oceania-query-demo/blob/main/notebooks/query_tara_r110002003.ipynb)
+
+**Note:** more Jupyter notebooks are available in the [`notebooks/`](https://github.com/Inria-Chile/oceania-query-demo/tree/main/notebooks) folder.
